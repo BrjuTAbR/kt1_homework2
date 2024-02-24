@@ -16,19 +16,28 @@ fun main() {
     println()
 
     val visaTransfer = printAboutTransfer(100_000, "Visa", 500_000)
-    val mirTransfer = printAboutTransfer(150_000, "Мир", 300_000)
-    val mcTransfer = printAboutTransfer(125_000, "Mastercard", 0)
-    val stopTransfer = printAboutTransfer(145_000, "Visa", 555_001)
+    println("\tКомиссия: $visaTransfer")
 
-    println(visaTransfer)
-    println(mirTransfer)
-    println(mcTransfer)
-    println(stopTransfer)
+    val mirTransfer = printAboutTransfer(150_000, "Мир", 300_000)
+    println("\tКомиссия: $mirTransfer")
+
+    val mcTransferS = printAboutTransfer(50_000, "Mastercard", 0)
+    println("\tКомиссия: $mcTransferS")
+
+    val mcTransferM = printAboutTransfer(50_000, "Mastercard", 35_000)
+    println("\tКомиссия: $mcTransferM")
+
+    val mcTransferL = printAboutTransfer(50_000, "Mastercard", 100_000)
+    println("\tКомиссия: $mcTransferL")
+
+    val stopTransfer = printAboutTransfer(145_000, "Visa", 555_001)
+    println("\tКомиссия: $stopTransfer")
 }
 
-fun printAboutTransfer(transferAmount: Int, cardType: String = CARD_TYPE_DEFAULT, prevTransfersAmount: Int = 0)  {
+fun printAboutTransfer(transferAmount: Int, cardType: String = CARD_TYPE_DEFAULT, prevTransfersAmount: Int = 0) : Int  {
     val fee = calcTransfer(transferAmount, cardType, prevTransfersAmount)
     println("""С карты $cardType за месяц совершено переводов на сумму $prevTransfersAmount.
         Перевод на сумму $transferAmount ${if (fee >= 0) "успешно осуществлен" else "не прошел"}         
     """.trimIndent())
+    return fee
 }

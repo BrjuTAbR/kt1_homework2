@@ -17,7 +17,7 @@ fun agoToText(agoTime: UInt): String {
 
 fun getWordMin(minutes: Int): String {
     val word = "минут"
-    return if (minutes > 10 && minutes < 20) {
+    return if (minutes in 11..19) {
         word
     } else {
         word + when (minutes % 10) {
@@ -31,7 +31,7 @@ fun getWordMin(minutes: Int): String {
 fun getWordHour(hour: Int): String {
     val word = "час"
     return word + when {
-        (hour >= 5 && hour <= 20) -> "ов"
+        (hour in 5..20) -> "ов"
         (hour % 10 == 1) -> ""
         else -> "a"
     }

@@ -1,7 +1,5 @@
-import kotlin.math.max
-
-val CARD_TYPE_DEFAULT = "Мир"
-val MASTERCARD = "Mastercard"
+const val CARD_TYPE_DEFAULT = "Мир"
+const val MASTERCARD = "Mastercard"
 
 fun calcTransfer(transferAmount: Int, cardType: String = CARD_TYPE_DEFAULT, prevTransfersAmount: Int = 0): Int {
     val limitDay = 150_000
@@ -9,7 +7,7 @@ fun calcTransfer(transferAmount: Int, cardType: String = CARD_TYPE_DEFAULT, prev
 
     val newTransferSum = transferAmount + prevTransfersAmount
 
-    val fee = if (transferAmount > limitDay
+    val fee: Int = if (transferAmount > limitDay
         || newTransferSum > limitMonth
     ) {
         -1
@@ -21,9 +19,13 @@ fun calcTransfer(transferAmount: Int, cardType: String = CARD_TYPE_DEFAULT, prev
 
         when (cardType) {
             CARD_TYPE_DEFAULT -> 0
-
             MASTERCARD -> {
-                (max(newTransferSum - nonFeeLimitMC, 0) * feeRateMC).toInt() + feeAddMC
+                when {
+                    (prevTransfersAmount > nonFeeLimitMC) -> (transferAmount * feeRateMC).toInt() + feeAddMC
+                    (newTransferSum > nonFeeLimitMC)
+                        -> ((newTransferSum - nonFeeLimitMC) * feeRateMC).toInt() + feeAddMC
+                    else -> 0
+                }
             }
             else -> (transferAmount * feeRateDefault).toInt()
         }
