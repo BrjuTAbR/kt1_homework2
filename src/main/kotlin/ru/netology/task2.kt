@@ -1,7 +1,13 @@
+package ru.netology
+
 const val CARD_TYPE_DEFAULT = "Мир"
 const val MASTERCARD = "Mastercard"
 
-fun calcTransfer(transferAmount: Int, cardType: String = CARD_TYPE_DEFAULT, prevTransfersAmount: Int = 0): Int {
+fun calcTransfer(
+    transferAmount: Int,
+    cardType: String = CARD_TYPE_DEFAULT,
+    prevTransfersAmount: Int = 0
+): Int {
     val limitDay = 150_000
     val limitMonth = 600_000
 

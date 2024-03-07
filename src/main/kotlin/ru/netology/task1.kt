@@ -1,3 +1,5 @@
+package ru.netology
+
 val MIN = 60U
 val HOUR = MIN * MIN
 val DAY = 24U * HOUR
